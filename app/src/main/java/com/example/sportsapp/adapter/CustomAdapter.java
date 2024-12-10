@@ -17,10 +17,12 @@ import java.util.List;
 //This is the bridge between the Data (List<Sport>) and the RecyclerView + CardView
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.SportsViewHolder> {
 
-    private List<Sport> sportList;
+    private final List<Sport> sportList;
+    private final View.OnClickListener onClickListener;
 
-    public CustomAdapter(List<Sport> sportList) {
+    public CustomAdapter(List<Sport> sportList, View.OnClickListener onClickListener) {
         this.sportList = sportList;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -46,6 +48,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.SportsView
         Sport sport = sportList.get(position);
         holder.textView.setText(sport.getSportName());
         holder.imageView.setImageResource(sport.getSportImg());
+
+        //Pass the click listener via itemView
+        holder.itemView.setTag(sport); // Store the sport as a tag for easy access in listener
+        holder.itemView.setOnClickListener(onClickListener);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.sportsapp;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
         sportList.add(sFour);
         sportList.add(sFive);
 
-        customAdapter = new CustomAdapter(sportList);
+//        customAdapter = new CustomAdapter(sportList);
+        customAdapter = new CustomAdapter(sportList, v -> {
+            Sport clickedSport = (Sport) v.getTag(); // Retrieve the sport object from the tag
+            Toast.makeText(this, "You selected: " + clickedSport.getSportName(), Toast.LENGTH_SHORT).show();
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(customAdapter);
 
